@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Universe — Complete Visual Breakdown</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --bg:#0a0c10; --surface:#111318; --card:#161a22; --border:#1e2430;
+  --a1:#4f8ef7; --a2:#a259ff; --a3:#00d4aa; --a4:#ff6b6b; --a5:#ffd166;
+  --text:#e8eaf0; --muted:#6b7280; --dim:#9ca3af;
+  --nav-h:52px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto} /* we handle scroll manually */
+
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:15px;overflow-x:hidden}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--a1),var(--a2),var(--a3));z-index:9999;transition:width .1s}
+
+/* ── NAV ── */
+nav{position:fixed;top:3px;left:0;right:0;z-index:1000;background:rgba(10,12,16,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:var(--nav-h)}
+.nav-inner{display:flex;align-items:center;gap:4px;padding:0 16px;height:100%;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-logo{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--a1);margin-right:12px;white-space:nowrap;letter-spacing:.05em;flex-shrink:0}
+.nav-btn{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;padding:5px 11px;border-radius:5px;border:none;background:transparent;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.nav-btn:hover{color:var(--a1);background:rgba(79,142,247,.1)}
+.nav-btn.active{color:var(--a1);background:rgba(79,142,247,.15);border:1px solid rgba(79,142,247,.3)}
+
+/* ── BODY OFFSET ── */
+.page-body{padding-top:calc(var(--nav-h) + 3px)}
+
+/* ── HERO ── */
+.hero{padding:70px 32px 56px;max-width:960px;margin:0 auto;text-align:center}
+.hero-pill{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--a3);display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,212,170,.3);padding:5px 16px;border-radius:20px;margin-bottom:24px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--a3);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero h1{font-size:clamp(2rem,5.5vw,3.6rem);font-weight:700;letter-spacing:-.025em;line-height:1.1;background:linear-gradient(135deg,#fff 25%,var(--a1) 55%,var(--a2) 85%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:18px}
+.hero-sub{font-size:1.05rem;color:var(--dim);max-width:680px;margin:0 auto 32px}
+.hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:8px}
+.hstat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 20px;text-align:center}
+.hstat-num{font-family:'Space Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--a1)}
+.hstat-lbl{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.scroll-hint{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:0.78rem}
+.scroll-arrow{animation:bounce 1.8s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── SECTION BASE ── */
+.section{max-width:1020px;margin:0 auto;padding:64px 24px;border-top:1px solid var(--border)}
+.sec-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--a1);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(79,142,247,.3),transparent)}
+.sec-title{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
+.sec-sub{color:var(--dim);font-size:.95rem;max-width:730px;margin-bottom:32px;line-height:1.7}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 26px;transition:border-color .25s,transform .25s,box-shadow .25s}
+.card:hover{border-color:rgba(79,142,247,.4);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.card-title{font-weight:600;font-size:.97rem;margin-bottom:8px}
+.card-body{color:var(--dim);font-size:.87rem;line-height:1.7}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.at{border-top:3px solid var(--a1)} .av{border-top:3px solid var(--a2)}
+.ag{border-top:3px solid var(--a3)} .ac{border-top:3px solid var(--a4)}
+.am{border-top:3px solid var(--a5)}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;margin-bottom:9px}
+.bt{background:rgba(79,142,247,.15);color:var(--a1)}
+.bv{background:rgba(162,89,255,.15);color:var(--a2)}
+.bg{background:rgba(0,212,170,.15);color:var(--a3)}
+.bc{background:rgba(255,107,107,.15);color:var(--a4)}
+.bm{background:rgba(255,209,102,.15);color:var(--a5)}
+
+/* ── CALLOUT ── */
+.callout{border-radius:10px;padding:16px 20px;margin:18px 0;font-size:.9rem;line-height:1.7}
+.c-info{background:rgba(79,142,247,.07);border:1px solid rgba(79,142,247,.2)}
+.c-tip{background:rgba(0,212,170,.07);border:1px solid rgba(0,212,170,.2)}
+.c-warn{background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.2)}
+
+/* ── FLOW DIAGRAM ── */
+.flow{display:flex;flex-direction:column;margin:22px 0}
+.fs{display:flex;gap:14px;align-items:flex-start}
+.fl{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.fdot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;position:relative;z-index:1}
+.fline{width:2px;flex:1;min-height:20px;background:linear-gradient(180deg,rgba(79,142,247,.4),rgba(79,142,247,.1));margin:2px 0}
+.fc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px 19px;margin-bottom:10px;flex:1;transition:border-color .2s}
+.fc:hover{border-color:rgba(79,142,247,.35)}
+.fc h4{font-size:.93rem;font-weight:600;margin-bottom:4px}
+.fc p{font-size:.83rem;color:var(--dim)}
+
+/* ── PIPELINE (HORIZONTAL) ── */
+.pipeline{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin:22px 0}
+.ps{display:flex;align-items:center;flex:1;min-width:120px}
+.pb{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 14px;text-align:center;flex:1;transition:border-color .2s,transform .2s}
+.pb:hover{border-color:var(--a1);transform:scale(1.03)}
+.pi{font-size:1.4rem;margin-bottom:5px}
+.pl{font-size:.79rem;font-weight:600}
+.psub{font-size:.7rem;color:var(--dim);margin-top:3px}
+.parrow{font-size:16px;color:var(--muted);padding:0 5px;flex-shrink:0}
+
+/* ── EXAMPLE BOX ── */
+.example{background:rgba(0,0,0,.3);border-left:3px solid var(--a3);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:.86rem}
+.example strong{color:var(--a3)}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
+.tbl th{background:var(--surface);color:var(--dim);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.ok{color:var(--a3)} .no{color:var(--a4)}
+
+/* ── ACCORDION ── */
+.acc-item{border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.acc-hd{background:var(--card);padding:14px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.92rem;user-select:none;transition:background .2s;gap:12px}
+.acc-hd:hover{background:rgba(255,255,255,.03)}
+.acc-sub{color:var(--muted);font-size:.79rem;font-weight:400;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acc-chev{transition:transform .3s;flex-shrink:0;color:var(--muted);font-size:.85rem}
+.acc-body{display:none;padding:16px 20px;background:var(--surface);font-size:.87rem;color:var(--dim);line-height:1.75;border-top:1px solid var(--border)}
+.acc-item.open .acc-body{display:block}
+.acc-item.open .acc-chev{transform:rotate(180deg)}
+.acc-item.open .acc-hd{background:rgba(79,142,247,.05)}
+
+/* ── SKILL CARD ── */
+.skcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;display:flex;gap:14px;transition:border-color .25s,transform .25s}
+.skcard:hover{border-color:rgba(79,142,247,.4);transform:translateY(-2px)}
+.sk-icon{font-size:1.8rem;flex-shrink:0;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--surface);border-radius:9px}
+.sk-body h4{font-weight:600;margin-bottom:4px;font-size:.93rem}
+.sk-body p{font-size:.83rem;color:var(--dim)}
+
+/* ── AGENT HUB ── */
+.hub-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;margin:22px 0}
+.hub-core{background:linear-gradient(135deg,rgba(162,89,255,.18),rgba(79,142,247,.18));border:2px solid rgba(162,89,255,.45);border-radius:50%;width:130px;height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex-shrink:0;box-shadow:0 0 40px rgba(162,89,255,.15)}
+.hub-core .hc-icon{font-size:2rem}
+.hub-core .hc-lbl{font-size:.78rem;font-weight:600;margin-top:4px;line-height:1.3}
+.hub-spokes{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%}
+.spoke{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-align:center;min-width:105px;transition:border-color .2s,transform .2s}
+.spoke:hover{border-color:var(--a2);transform:translateY(-2px)}
+.spoke .sp-i{font-size:1.2rem;margin-bottom:4px}
+.spoke .sp-l{font-weight:600;font-size:.79rem}
+.spoke .sp-s{color:var(--dim);font-size:.7rem}
+
+/* ── CW FLOW ── */
+.cw-flow{display:flex;flex-direction:column;gap:10px;margin:22px 0}
+.cw-row{display:flex;gap:10px;flex-wrap:wrap}
+.cw-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 17px;flex:1;min-width:155px}
+.cw-box h4{font-size:.88rem;font-weight:600;margin-bottom:3px}
+.cw-box p{color:var(--dim);font-size:.79rem}
+.cw-div{text-align:center;font-size:1.3rem;color:var(--muted);padding:2px 0}
+
+/* ── STACK LAYERS ── */
+.layer{border-radius:10px;padding:15px 19px;margin-bottom:6px}
+.layer-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.layer-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--surface);border-radius:7px;padding:8px 13px;font-size:.8rem;border:1px solid var(--border)}
+.chip strong{display:block;font-size:.77rem;margin-bottom:2px}
+.chip span{color:var(--dim);font-size:.72rem}
+.layer-arrow{text-align:center;color:var(--muted);font-size:1.1rem;margin:2px 0}
+
+/* ── RAG SIMULATOR ── */
+.sim-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:22px 0}
+.sim-title{font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px;font-size:.93rem}
+.sim-input-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.sim-input{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:.87rem;outline:none;transition:border-color .2s}
+.sim-input:focus{border-color:var(--a1)}
+.sim-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.87rem;transition:opacity .2s,transform .1s;white-space:nowrap}
+.sim-btn:hover{opacity:.85}
+.sim-btn:active{transform:scale(.97)}
+.sim-steps{display:none;flex-direction:column;gap:10px}
+.sim-step{background:var(--surface);border-radius:9px;padding:12px 15px;border-left:3px solid var(--border);font-size:.84rem;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s,border-color .3s}
+.sim-step.show{opacity:1;transform:none;border-left-color:var(--a3)}
+.sim-step .ss-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--a3);letter-spacing:.1em;margin-bottom:4px}
+.sim-step .ss-content{color:var(--dim);line-height:1.6}
+.sim-step code{font-family:'Space Mono',monospace;font-size:.78rem;background:rgba(0,0,0,.3);padding:1px 6px;border-radius:4px;color:var(--a5)}
+
+/* ── PROMPT BUILDER ── */
+.prompt-builder{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:22px 0}
+.pb-parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:16px}
+.pb-part{background:var(--surface);border-radius:9px;padding:10px 12px}
+.pb-part label{font-family:'Space Mono',monospace;font-size:10px;color:var(--a1);letter-spacing:.1em;display:block;margin-bottom:6px}
+.pb-part input,.pb-part select{width:100%;background:transparent;border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:.83rem;outline:none}
+.pb-part input:focus,.pb-part select:focus{border-color:var(--a1)}
+.pb-part select option{background:var(--card)}
+.pb-output{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:14px;font-family:'Space Mono',monospace;font-size:.8rem;color:var(--a3);line-height:1.7;min-height:72px;white-space:pre-wrap;word-break:break-word}
+.pb-bottom{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.copy-btn{background:transparent;border:1px solid var(--border);color:var(--dim);padding:7px 14px;border-radius:7px;cursor:pointer;font-size:.8rem;transition:all .2s}
+.copy-btn:hover{border-color:var(--a3);color:var(--a3)}
+.copy-msg{font-size:.79rem;color:var(--a3);opacity:0;transition:opacity .3s}
+
+/* ── BACK TO TOP ── */
+#btt{position:fixed;bottom:24px;right:24px;z-index:500;background:var(--a1);border:none;border-radius:50%;width:44px;height:44px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .2s;box-shadow:0 4px 16px rgba(79,142,247,.4)}
+#btt.show{opacity:1;pointer-events:all}
+#btt:hover{transform:translateY(-3px)}
+
+/* ── HL LIST ── */
+.hl{list-style:none;padding:0}
+.hl li{padding:8px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;font-size:.87rem}
+.hl li:last-child{border-bottom:none}
+.hl li::before{content:'→';color:var(--a1);font-family:'Space Mono',monospace;flex-shrink:0;margin-top:1px}
+
+/* ── TIMELINE ── */
+.tl{position:relative;padding-left:28px;margin:18px 0}
+.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--a1),transparent)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-dot{position:absolute;left:-24px;top:5px;width:10px;height:10px;border-radius:50%;border:2px solid var(--a1);background:var(--bg)}
+.tl-t{font-weight:600;font-size:.88rem;margin-bottom:2px}
+.tl-b{color:var(--dim);font-size:.83rem;line-height:1.6}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── CODE ── */
+code{font-family:'Space Mono',monospace;font-size:.79rem;background:rgba(255,255,255,.07);padding:2px 6px;border-radius:4px;color:var(--a3)}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--border);margin-top:20px}
+.ft-brand{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--a1);margin-bottom:10px}
+.ft-chain{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-bottom:10px}
+.ft-node{background:var(--card);border:1px solid var(--border);padding:4px 10px;border-radius:5px;font-size:.76rem;font-family:'Space Mono',monospace}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .hero{padding:48px 18px 40px}
+  .section{padding:44px 16px}
+  .parrow{display:none}
+  .pipeline{gap:8px}
+  .ps{min-width:90px}
+}
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- NAV — all buttons, zero <a> tags that cause page navigation -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">⬡ AI UNIVERSE</span>
+    <button class="nav-btn active" onclick="goTo('hero')">Home</button>
+    <button class="nav-btn" onclick="goTo('what-is-ai')">AI Basics</button>
+    <button class="nav-btn" onclick="goTo('llm')">LLMs</button>
+    <button class="nav-btn" onclick="goTo('models')">Models</button>
+    <button class="nav-btn" onclick="goTo('datasets')">Datasets</button>
+    <button class="nav-btn" onclick="goTo('rag')">RAG</button>
+    <button class="nav-btn" onclick="goTo('skills')">Skills</button>
+    <button class="nav-btn" onclick="goTo('agents')">Agents</button>
+    <button class="nav-btn" onclick="goTo('coworker')">Co-workers</button>
+    <button class="nav-btn" onclick="goTo('mcp')">MCP</button>
+    <button class="nav-btn" onclick="goTo('prompting')">Prompting</button>
+    <button class="nav-btn" onclick="goTo('stack')">Full Stack</button>
+    <button class="nav-btn" onclick="goTo('a2a')">A2A</button>
+    <button class="nav-btn" onclick="goTo('glossary')">Glossary</button>
+  </div>
+</nav>
+
+<div class="page-body">
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<div id="hero" class="hero">
+  <div class="hero-pill"><span class="hero-dot"></span>Complete Visual Guide — 2025</div>
+  <h1>The AI Universe,<br>Explained Simply</h1>
+  <p class="hero-sub">From raw datasets to autonomous agents — every concept demystified with flow diagrams, live simulators, and zero jargon required. For non-technical and technical people alike.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num">14</div><div class="hstat-lbl">Sections</div></div>
+    <div class="hstat"><div class="hstat-num">50+</div><div class="hstat-lbl">Concepts</div></div>
+    <div class="hstat"><div class="hstat-num">2</div><div class="hstat-lbl">Live Demos</div></div>
+    <div class="hstat"><div class="hstat-num">∞</div><div class="hstat-lbl">Clarity</div></div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-arrow">↓</div>Scroll to explore</div>
+</div>
+
+<!-- ═══════════════════════════════════════ S1 — WHAT IS AI ═══════════════════════════════════════ -->
+<section id="what-is-ai" class="section reveal">
+  <div class="sec-label">Section 01</div>
+  <h2 class="sec-title">What is Artificial Intelligence?</h2>
+  <p class="sec-sub">AI is any computer system that performs tasks normally requiring human intelligence — understanding language, recognizing patterns, making decisions, solving problems. It is not magic; it is math at massive scale.</p>
+
+  <div class="callout c-tip">
+    <strong style="color:var(--a3)">🧠 Simple Analogy:</strong> AI is like a very well-read intern who has absorbed millions of books, emails, and conversations. They can answer questions, write content, and assist with tasks — incredibly fast, but without genuine understanding. They pattern-match at superhuman speed.
+  </div>
+
+  <div class="g3" style="margin-top:22px">
+    <div class="card at">
+      <div class="badge bt">Narrow AI</div>
+      <div class="card-title">Specialist — One Task</div>
+      <div class="card-body">Excels at exactly one thing.<br><br><strong>Examples:</strong> Gmail spam filter, Netflix recommendations, Spotify's Discover Weekly, face unlock, Google Maps routing.</div>
+    </div>
+    <div class="card av">
+      <div class="badge bv">General AI (Today)</div>
+      <div class="card-title">Multi-domain Assistant</div>
+      <div class="card-body">Handles many different tasks — write, reason, code, analyze. Claude, ChatGPT, and Gemini sit here today. Broad but not omniscient.</div>
+    </div>
+    <div class="card ac">
+      <div class="badge bc">Super AI</div>
+      <div class="card-title">Theoretical / Future</div>
+      <div class="card-body">Surpasses human intelligence across all domains. Does not exist yet. A topic of intense research and ethical debate.</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:32px 0 14px;color:var(--dim)">The AI Family Tree — How It All Nests</h3>
+  <div class="flow">
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(79,142,247,.2);color:var(--a1)">AI</div><div class="fline"></div></div>
+      <div class="fc"><h4>Artificial Intelligence (AI) — The Big Tent</h4><p>Any technique making computers mimic human intelligence. Everything below is a subset.</p></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(162,89,255,.2);color:var(--a2)">ML</div><div class="fline"></div></div>
+      <div class="fc"><h4>Machine Learning (ML) ⊂ AI</h4><p>Instead of hand-coded rules, the system learns patterns from data. Email spam detection learns from millions of spam examples — you never wrote a rule. It found the rules itself.</p></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(0,212,170,.2);color:var(--a3)">DL</div><div class="fline"></div></div>
+      <div class="fc"><h4>Deep Learning (DL) ⊂ ML</h4><p>Uses layered neural networks loosely inspired by the brain. Dramatically better at images, audio, and text than earlier ML. Powers virtually all modern AI breakthroughs.</p></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(255,209,102,.2);color:var(--a5)">LLM</div></div>
+      <div class="fc"><h4>Large Language Models (LLMs) ⊂ DL</h4><p>Deep learning applied specifically to language — trained on vast text corpora to predict and generate text. The engine behind Claude, ChatGPT, Gemini, and Llama.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S2 — LLMs ═══════════════════════════════════════ -->
+<section id="llm" class="section reveal">
+  <div class="sec-label">Section 02</div>
+  <h2 class="sec-title">Large Language Models (LLMs)</h2>
+  <p class="sec-sub">An LLM is trained on a massive amount of text — books, web pages, code, scientific papers — so it learns the statistical patterns of human language and can generate, understand, and reason with text at a high level.</p>
+
+  <div class="callout c-info">
+    <strong style="color:var(--a1)">📚 Simple Analogy:</strong> Imagine you read every book ever written, every website ever published, and every conversation ever recorded — and then could answer questions, write essays, and help solve problems. That's what an LLM does. It has compressed all that reading into billions of numbers (weights) inside a neural network.
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">How an LLM Responds — Step by Step</h3>
+  <div class="pipeline">
+    <div class="ps"><div class="pb at"><div class="pi">📝</div><div class="pl">Your Prompt</div><div class="psub">You type text</div></div></div>
+    <div class="parrow">→</div>
+    <div class="ps"><div class="pb av"><div class="pi">🔢</div><div class="pl">Tokenize</div><div class="psub">Text → numbers</div></div></div>
+    <div class="parrow">→</div>
+    <div class="ps"><div class="pb ag"><div class="pi">🧠</div><div class="pl">Transform</div><div class="psub">96 attention layers</div></div></div>
+    <div class="parrow">→</div>
+    <div class="ps"><div class="pb ac"><div class="pi">🎲</div><div class="pl">Sample</div><div class="psub">Pick next token</div></div></div>
+    <div class="parrow">→</div>
+    <div class="ps"><div class="pb am"><div class="pi">🔁</div><div class="pl">Repeat</div><div class="psub">Until complete</div></div></div>
+    <div class="parrow">→</div>
+    <div class="ps"><div class="pb at"><div class="pi">💬</div><div class="pl">Response</div><div class="psub">Streamed to you</div></div></div>
+  </div>
+
+  <div class="example">
+    <strong>Concrete Example:</strong> You type <code>"Summarize this contract"</code> → split into ~5 tokens → passed through 96 transformer layers with 70 billion parameters → model predicts the most statistically likely helpful summary → streams back word by word. It is predicting the best next token, thousands of times per second.
+  </div>
+
+  <div class="g2" style="margin-top:22px">
+    <div class="card ag">
+      <div class="card-title">✅ What LLMs Excel At</div>
+      <ul class="hl" style="margin-top:8px">
+        <li>Writing, summarizing, and translating text</li>
+        <li>Answering questions from their training knowledge</li>
+        <li>Generating and explaining code</li>
+        <li>Step-by-step reasoning and analysis</li>
+        <li>Classifying, extracting, and structuring data</li>
+        <li>Creative content — stories, emails, scripts</li>
+      </ul>
+    </div>
+    <div class="card ac">
+      <div class="card-title">⚠️ Where LLMs Fall Short</div>
+      <ul class="hl" style="margin-top:8px">
+        <li>Events after their training cutoff date</li>
+        <li>Live data — prices, stock, inventory, news</li>
+        <li>Precise arithmetic with large numbers</li>
+        <li>Persistent memory across sessions (without RAG)</li>
+        <li>Taking real-world actions (without Agent tools)</li>
+        <li>Guaranteed accuracy — they can hallucinate</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S3 — MODELS ═══════════════════════════════════════ -->
+<section id="models" class="section reveal">
+  <div class="sec-label">Section 03</div>
+  <h2 class="sec-title">AI Models — The Engines</h2>
+  <p class="sec-sub">A "model" is the trained AI system itself — billions of numerical weights defining how it responds. Different models are optimized for different sizes, tasks, and deployment scenarios.</p>
+
+  <div class="callout c-tip">
+    <strong style="color:var(--a3)">🚗 Analogy:</strong> A model is like a car engine. A 4-cylinder (small model) is fast and fuel-efficient for daily commutes. A V8 (large model) is powerful but expensive to run. You pick the right engine for the job — not always the biggest.
+  </div>
+
+  <table class="tbl">
+    <tr><th>Model</th><th>Company</th><th>Key Strength</th><th>Best For</th><th>Context</th></tr>
+    <tr><td><strong>GPT-4o</strong></td><td>OpenAI</td><td>Fast multimodal (text+image+audio)</td><td>General tasks, vision, real-time</td><td>128K</td></tr>
+    <tr><td><strong>Claude 3.7 Sonnet</strong></td><td>Anthropic</td><td>Reasoning, long context, safety</td><td>Enterprise docs, analysis, agents</td><td>200K</td></tr>
+    <tr><td><strong>Gemini 2.0 Flash</strong></td><td>Google</td><td>Speed + Google Workspace integration</td><td>Real-time, multimodal, search</td><td>1M</td></tr>
+    <tr><td><strong>Llama 3.3 70B</strong></td><td>Meta</td><td>Open weights, self-hostable</td><td>Private deployments, fine-tuning</td><td>128K</td></tr>
+    <tr><td><strong>Mistral Large 2</strong></td><td>Mistral AI</td><td>Efficiency, multilingual, European</td><td>EU compliance, code, cost-efficiency</td><td>128K</td></tr>
+    <tr><td><strong>DeepSeek R1</strong></td><td>DeepSeek</td><td>Chain-of-thought reasoning, low cost</td><td>Math, coding, complex reasoning</td><td>64K</td></tr>
+  </table>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">Model Types by Capability</h3>
+  <div class="g3">
+    <div class="card at"><div class="badge bt">Language</div><div class="card-title">Text / LLMs</div><div class="card-body">Read, write, reason with text. GPT, Claude, Gemini, Llama. The most used AI category today.</div></div>
+    <div class="card av"><div class="badge bv">Vision</div><div class="card-title">Image Generation</div><div class="card-body">DALL-E 3, Stable Diffusion, Midjourney, Imagen — create images from text descriptions (text-to-image).</div></div>
+    <div class="card ag"><div class="badge bg">Audio</div><div class="card-title">Speech Models</div><div class="card-body">Whisper (speech → text), ElevenLabs (text → speech), Suno (text → music). Bridge audio and language.</div></div>
+    <div class="card ac"><div class="badge bc">Code</div><div class="card-title">Code Models</div><div class="card-body">GitHub Copilot, Codex, StarCoder — specialized for writing, completing, and debugging code across languages.</div></div>
+    <div class="card am"><div class="badge bm">Embedding</div><div class="card-title">Vector Models</div><div class="card-body">Convert text → numerical vectors to measure semantic similarity. Critical for RAG search pipelines.</div></div>
+    <div class="card" style="border-top:3px solid var(--muted)"><div class="badge" style="background:rgba(255,255,255,.08);color:var(--muted)">Multimodal</div><div class="card-title">All-in-One</div><div class="card-body">Handle text + image + audio + video together. GPT-4o, Gemini 2.0 — the converging future of AI.</div></div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">How a Model is Created — The Training Lifecycle</h3>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Pre-training (Weeks, Millions of $)</div><div class="tl-b">Train on trillions of tokens from the internet, books, and code. The model learns language, facts, and reasoning from scratch. This creates the "base model" — it can predict text but isn't yet helpful.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Instruction Fine-tuning (Days)</div><div class="tl-b">Train on curated question-answer pairs to teach the model to follow instructions rather than just predict the next word. Makes it actually useful as an assistant.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">RLHF — Reinforcement Learning from Human Feedback (Days)</div><div class="tl-b">Human raters score model responses. A reward model learns what humans prefer. The LLM is fine-tuned to maximize that reward. This is why Claude is polite, helpful, and refuses harmful requests.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Deployment + Continuous Improvement</div><div class="tl-b">Model is served via API at scale. Real usage data informs future training iterations. Models improve version by version.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S4 — DATASETS ═══════════════════════════════════════ -->
+<section id="datasets" class="section reveal">
+  <div class="sec-label">Section 04</div>
+  <h2 class="sec-title">Datasets — The Fuel for AI</h2>
+  <p class="sec-sub">A dataset is organized data used to train or fine-tune an AI model. Quality and quantity of data directly determine model capability. Garbage in, garbage out — applies doubly to AI.</p>
+
+  <div class="callout c-info">
+    <strong style="color:var(--a1)">🍳 Analogy:</strong> Training an AI is like teaching a chef. The dataset is the recipe collection — the more diverse and high-quality the recipes, the better the chef. A chef trained only on Italian cuisine will struggle when asked to make sushi. A model trained only on English will struggle with French.
+  </div>
+
+  <div class="g2" style="margin-top:22px">
+    <div class="card at">
+      <div class="badge bt">Pre-training Data</div>
+      <div class="card-title">The Giant Foundation Dataset</div>
+      <div class="card-body">Huge and general — web crawls, books, code, academic papers. Teaches language, world knowledge, and reasoning. Done once. Costs tens of millions of dollars. Creates the base model.
+        <div class="example" style="margin-top:10px"><strong>Examples:</strong> Common Crawl (web), Wikipedia, GitHub, ArXiv, Books3, StackOverflow. GPT-4 was trained on an estimated 13 trillion tokens.</div>
+      </div>
+    </div>
+    <div class="card av">
+      <div class="badge bv">Fine-tuning Data</div>
+      <div class="card-title">The Specialist Dataset</div>
+      <div class="card-body">Smaller, curated dataset for a specific domain, task, or behavior. Far cheaper than pre-training. Customizes the base model into a domain expert.
+        <div class="example" style="margin-top:10px"><strong>Example:</strong> 10,000 Salesforce support conversations → fine-tune Llama to become a Salesforce support specialist that knows your exact product.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">Data Quality Dimensions — What Makes a Good Dataset</h3>
+  <div class="g4">
+    <div class="card"><div style="font-size:1.4rem;margin-bottom:8px">🎯</div><div class="card-title">Accuracy</div><div class="card-body">Factual correctness. Wrong data trains wrong beliefs.</div></div>
+    <div class="card"><div style="font-size:1.4rem;margin-bottom:8px">🌈</div><div class="card-title">Diversity</div><div class="card-body">Covers many topics, styles, and perspectives. Avoids bias.</div></div>
+    <div class="card"><div style="font-size:1.4rem;margin-bottom:8px">📏</div><div class="card-title">Scale</div><div class="card-body">More data = more generalizable. LLMs need trillions of tokens.</div></div>
+    <div class="card"><div style="font-size:1.4rem;margin-bottom:8px">🧹</div><div class="card-title">Cleanliness</div><div class="card-body">Deduplication, noise removal, encoding fixes. Raw web data is messy.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S5 — RAG ═══════════════════════════════════════ -->
+<section id="rag" class="section reveal">
+  <div class="sec-label">Section 05</div>
+  <h2 class="sec-title">RAG — Retrieval-Augmented Generation</h2>
+  <p class="sec-sub">RAG gives an LLM access to a live, searchable knowledge base so it can look up relevant information before answering — instead of relying only on what it memorized months ago during training.</p>
+
+  <div class="callout c-tip">
+    <strong style="color:var(--a3)">📖 Analogy:</strong> A doctor can answer from memory (risky — might be outdated) or look it up in the medical database first, then answer. RAG is the "look it up first" approach. The LLM's answer is grounded in real, current documents — not hallucinated from stale training memory.
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">The RAG Pipeline — Full Architecture</h3>
+  <div class="flow">
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(255,209,102,.2);color:var(--a5)">①</div><div class="fline"></div></div>
+      <div class="fc"><h4>📚 Ingest & Chunk Documents <span style="font-weight:400;color:var(--muted)">(done once, offline)</span></h4><p>Your documents — PDFs, Word files, Confluence pages, Salesforce records, Notion pages — are split into small, overlapping chunks of 300–500 words each. Chunk size is a tuning parameter: smaller = more precise retrieval; larger = more context per result.</p><div class="example"><strong>Example:</strong> A 200-page product manual → ~400 chunks of 3–4 paragraphs. A 50-page contract → ~80 chunks by clause.</div></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(79,142,247,.2);color:var(--a1)">②</div><div class="fline"></div></div>
+      <div class="fc"><h4>🔢 Embed Chunks → Store in Vector DB <span style="font-weight:400;color:var(--muted)">(offline)</span></h4><p>Each chunk is passed through an embedding model (e.g. OpenAI text-embedding-3-large) which converts it into a vector — a list of ~1536 floating-point numbers representing its semantic meaning. These vectors are stored in a vector database: Pinecone, Weaviate, pgvector, Vertex AI Search, or Chroma.</p><div class="example"><strong>Example:</strong> "How to reset password" → [0.23, -0.87, 0.04, 0.61, …1536 numbers] stored with a pointer back to the original text chunk.</div></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(0,212,170,.2);color:var(--a3)">③</div><div class="fline"></div></div>
+      <div class="fc"><h4>❓ User Asks a Question <span style="font-weight:400;color:var(--muted)">(real-time)</span></h4><p>The user's query is also embedded into a vector using the same embedding model. This query vector will be compared against all stored document chunk vectors.</p><div class="example"><strong>Example:</strong> "How do I reset my BlackLine account password?" → embedded to a query vector.</div></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(162,89,255,.2);color:var(--a2)">④</div><div class="fline"></div></div>
+      <div class="fc"><h4>🔍 Semantic Search — Find Closest Chunks</h4><p>The vector DB computes cosine similarity between the query vector and all stored chunk vectors. The top-k (e.g., top 5) most similar chunks are retrieved. This is NOT keyword matching — it understands meaning. "password reset" and "account credentials recovery" are semantically close, so both return even without exact word matches.</p></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(255,107,107,.2);color:var(--a4)">⑤</div><div class="fline"></div></div>
+      <div class="fc"><h4>📋 Build Augmented Prompt</h4><p>Retrieved chunks are injected into the LLM's system prompt: <code>[CONTEXT]: {chunk1} {chunk2} {chunk3} ... [USER QUESTION]: How do I reset my BlackLine password?</code> The LLM is instructed to answer only from the provided context.</p></div>
+    </div>
+    <div class="fs">
+      <div class="fl"><div class="fdot" style="background:rgba(79,142,247,.2);color:var(--a1)">⑥</div></div>
+      <div class="fc"><h4>💬 LLM Generates a Grounded Answer</h4><p>The LLM answers using your retrieved documents as evidence — grounded in real content, not hallucinated from training. Optionally, it can cite which document chunk the answer came from for full auditability.</p></div>
+    </div>
+  </div>
+
+  <!-- RAG SIMULATOR -->
+  <div class="sim-wrap">
+    <div class="sim-title">🔬 <span>Interactive RAG Simulator — See How It Works</span></div>
+    <div class="sim-input-row">
+      <input class="sim-input" id="rag-query" placeholder='Try: "What is our refund policy?" or "How do Salesforce agents work?"' value="How do I reset my Salesforce password?">
+      <button class="sim-btn" onclick="runRAGSim()">▶ Run RAG Pipeline</button>
+    </div>
+    <div class="sim-steps" id="sim-steps">
+      <div class="sim-step" id="ss1"><div class="ss-label">STEP 1 — EMBED QUERY</div><div class="ss-content" id="ss1c"></div></div>
+      <div class="sim-step" id="ss2"><div class="ss-label">STEP 2 — VECTOR SEARCH</div><div class="ss-content" id="ss2c"></div></div>
+      <div class="sim-step" id="ss3"><div class="ss-label">STEP 3 — RETRIEVED CHUNKS</div><div class="ss-content" id="ss3c"></div></div>
+      <div class="sim-step" id="ss4"><div class="ss-label">STEP 4 — AUGMENTED PROMPT SENT TO LLM</div><div class="ss-content" id="ss4c"></div></div>
+      <div class="sim-step" id="ss5"><div class="ss-label">STEP 5 — LLM GROUNDED ANSWER</div><div class="ss-content" id="ss5c"></div></div>
+    </div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">RAG vs Fine-tuning — When to Use Which</h3>
+  <table class="tbl">
+    <tr><th>Factor</th><th>RAG</th><th>Fine-tuning</th></tr>
+    <tr><td><strong>Knowledge freshness</strong></td><td class="ok">✅ Real-time (update vector DB)</td><td class="no">❌ Requires retraining</td></tr>
+    <tr><td><strong>Cost</strong></td><td class="ok">✅ Cheap — just an embedding pipeline</td><td class="no">❌ Expensive GPU compute</td></tr>
+    <tr><td><strong>Source attribution</strong></td><td class="ok">✅ Can cite exact document chunks</td><td class="no">❌ Hard to trace provenance</td></tr>
+    <tr><td><strong>Behavior/style tuning</strong></td><td class="no">❌ Limited</td><td class="ok">✅ Best approach</td></tr>
+    <tr><td><strong>Domain expertise depth</strong></td><td>Good</td><td class="ok">✅ Better for deep specialization</td></tr>
+    <tr><td><strong>Best combination</strong></td><td colspan="2" style="color:var(--a3);text-align:center">✨ RAG + Fine-tuning together — specialized behavior AND live grounded knowledge</td></tr>
+  </table>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">RAG in the Real World — 6 Enterprise Use Cases</h3>
+  <div class="g3">
+    <div class="card at"><div class="badge bt">HR</div><div class="card-title">Policy Q&A Bot</div><div class="card-body">Employee asks: "What's the PTO policy?" → RAG retrieves the HR handbook → LLM answers accurately from the real policy, not from training guesses.</div></div>
+    <div class="card av"><div class="badge bv">Legal</div><div class="card-title">Contract Intelligence</div><div class="card-body">Upload 500 contracts → RAG + LLM finds all indemnification clauses, surfaces risky language, and compares terms across documents in seconds.</div></div>
+    <div class="card ag"><div class="badge bg">Sales</div><div class="card-title">CRM Intelligence</div><div class="card-body">Sales rep asks: "What issues did Acme Corp raise last quarter?" → RAG searches Salesforce cases + emails → LLM delivers a precise account summary.</div></div>
+    <div class="card ac"><div class="badge bc">Support</div><div class="card-title">Customer Service Bot</div><div class="card-body">Customer asks about a product feature → RAG retrieves product docs → answers grounded in truth, not hallucinated capabilities.</div></div>
+    <div class="card am"><div class="badge bm">Finance</div><div class="card-title">Analyst Copilot</div><div class="card-body">Analyst asks about Q3 performance → RAG pulls the right SEC filings and earnings calls → LLM generates the analysis with citations.</div></div>
+    <div class="card"><div class="badge" style="background:rgba(255,255,255,.08);color:var(--muted)">Dev</div><div class="card-title">Codebase Q&A</div><div class="card-body">Developer asks: "How does our auth module work?" → RAG indexes the full codebase → LLM explains with real code references and links.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S6 — SKILLS ═══════════════════════════════════════ -->
+<section id="skills" class="section reveal">
+  <div class="sec-label">Section 06</div>
+  <h2 class="sec-title">Skills — What Agents Can Do</h2>
+  <p class="sec-sub">A skill (also called a "tool" or "function") is a defined capability registered with an AI agent — a function the agent can call to interact with the real world beyond pure text generation.</p>
+
+  <div class="callout c-info">
+    <strong style="color:var(--a1)">📱 Analogy:</strong> Skills are like apps on a smartphone. Your phone (the agent) is intelligent, but without apps it can't do much practically. The Gmail app is the "email skill." Maps is the "navigation skill." Calendar is the "scheduling skill." You install the apps you need; the agent calls the skills it needs.
+  </div>
+
+  <div class="g2" style="margin-top:22px">
+    <div class="skcard at"><div class="sk-icon">🔍</div><div class="sk-body"><h4>Search Skill</h4><p>Search the web, a vector DB, or internal systems. Used when the agent needs information it doesn't have.</p><div class="example" style="margin-top:8px"><strong>Example:</strong> "Find the latest Salesforce CPQ pricing" → calls <code>web_search()</code></div></div></div>
+    <div class="skcard av"><div class="sk-icon">📧</div><div class="sk-body"><h4>Email Skill</h4><p>Read, draft, and send emails through Gmail or Outlook. Agent uses this when communication is required.</p><div class="example" style="margin-top:8px"><strong>Example:</strong> "Draft a follow-up to the prospect" → calls <code>gmail_draft()</code></div></div></div>
+    <div class="skcard ag"><div class="sk-icon">📊</div><div class="sk-body"><h4>CRM / Data Skill</h4><p>Query or update Salesforce, databases, or spreadsheets. The agent reads and writes live business data.</p><div class="example" style="margin-top:8px"><strong>Example:</strong> "Get open opportunities over $100K" → calls <code>salesforce_soql()</code></div></div></div>
+    <div class="skcard ac"><div class="sk-icon">💻</div><div class="sk-body"><h4>Code Execution Skill</h4><p>Run Python, JavaScript, or bash scripts to perform calculations, data analysis, or generate files.</p><div class="example" style="margin-top:8px"><strong>Example:</strong> "Calculate churn rate from this CSV" → calls <code>python_execute()</code></div></div></div>
+    <div class="skcard am"><div class="sk-icon">🗂️</div><div class="sk-body"><h4>Document Skill</h4><p>Create, read, and edit Word/PDF/Excel/Google Docs. Extract structured data from unstructured documents.</p><div class="example" style="margin-top:8px"><strong>Example:</strong> "Create a BRD from this transcript" → calls <code>docx_create()</code></div></div></div>
+    <div class="skcard" style="border-top:3px solid var(--muted)"><div class="sk-icon">🌐</div><div class="sk-body"><h4>API Skill</h4><p>Call any external REST API — Jira, Slack, payment processors, ERPs. Connects AI to any web service.</p><div class="example" style="margin-top:8px"><strong>Example:</strong> "Create a Jira story for this feature" → calls <code>jira_create_issue()</code></div></div></div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">How a Skill Works Internally — Function Calling Flow</h3>
+  <div class="flow">
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(79,142,247,.2);color:var(--a1)">1</div><div class="fline"></div></div><div class="fc"><h4>User Intent Detected</h4><p>Agent receives: "What's the weather in Chicago?" — the LLM recognizes this needs live data, not a training-based answer.</p></div></div>
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(162,89,255,.2);color:var(--a2)">2</div><div class="fline"></div></div><div class="fc"><h4>LLM Generates a Tool Call (JSON)</h4><p>Instead of answering in text, the LLM outputs: <code>{"tool": "weather_api", "params": {"city": "Chicago"}}</code>. The host application intercepts this.</p></div></div>
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(0,212,170,.2);color:var(--a3)">3</div><div class="fline"></div></div><div class="fc"><h4>Host Executes the Skill</h4><p>Your application (not the LLM) calls the actual weather API. Gets back real data: <code>{"temp": "72°F", "condition": "Partly cloudy"}</code>.</p></div></div>
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(255,209,102,.2);color:var(--a5)">4</div></div><div class="fc"><h4>Result Fed Back to LLM</h4><p>The tool result is added to the conversation as a "tool result" message. The LLM now generates a natural language response: "It's currently 72°F and partly cloudy in Chicago."</p></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S7 — AGENTS ═══════════════════════════════════════ -->
+<section id="agents" class="section reveal">
+  <div class="sec-label">Section 07</div>
+  <h2 class="sec-title">AI Agents — AI That Plans and Acts</h2>
+  <p class="sec-sub">An AI agent is an LLM that doesn't just respond — it reasons through multi-step goals, selects and uses tools (skills), observes results, and loops until the task is complete — with minimal human intervention at each step.</p>
+
+  <div class="callout c-tip">
+    <strong style="color:var(--a3)">🤖 Analogy:</strong> A chatbot is a vending machine — press a button, get one item. An agent is like hiring a capable employee — you say "research our top 5 competitors and email me a report by 5pm," and it figures out the steps, does the work, and delivers. You check the final result, not every micro-step.
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">The Agent Reasoning Loop — ReAct Pattern</h3>
+  <div class="flow">
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(255,209,102,.2);color:var(--a5)">👤</div><div class="fline"></div></div><div class="fc"><h4>Human Gives a Goal</h4><p>"Research the top 3 Salesforce competitors, compare their pricing, and create a Google Doc summary."</p></div></div>
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(162,89,255,.2);color:var(--a2)">🧠</div><div class="fline"></div></div><div class="fc"><h4>Agent THINKS — Plans Subtasks</h4><p>"I need to: 1) identify top Salesforce competitors, 2) search each for pricing, 3) compare them side-by-side, 4) create a Google Doc with the comparison." Planning complete.</p></div></div>
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(0,212,170,.2);color:var(--a3)">🔧</div><div class="fline"></div></div><div class="fc"><h4>Agent ACTS — Calls a Skill</h4><p>Calls <code>web_search("top Salesforce CRM competitors 2025")</code> — gets back structured results: HubSpot, Microsoft Dynamics, Zoho CRM.</p></div></div>
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(79,142,247,.2);color:var(--a1)">👁️</div><div class="fline"></div></div><div class="fc"><h4>Agent OBSERVES — Reads Results</h4><p>Reads the search results. Realizes it needs pricing for each. Updates its internal plan: "Now search pricing for HubSpot, then Dynamics, then Zoho."</p></div></div>
+    <div class="fs"><div class="fl"><div class="fdot" style="background:rgba(255,107,107,.2);color:var(--a4)">🔁</div><div class="fline"></div></div><div class="fc"><h4>LOOP — Repeat Until Goal is Met</h4><p>Runs 3 more searches. Synthesizes all data. Calls <code>gdocs_create(content)</code>. Sends the doc link back to the user. Task complete — autonomously.</p></div></div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 18px;color:var(--dim)">What's Inside an Agent</h3>
+  <div class="hub-wrap">
+    <div class="hub-core"><div class="hc-icon">🧠</div><div class="hc-lbl">LLM Brain<br><span style="color:var(--muted);font-weight:400">(Claude / GPT / Gemini)</span></div></div>
+    <div class="hub-spokes">
+      <div class="spoke"><div class="sp-i">💾</div><div class="sp-l">Memory</div><div class="sp-s">Short-term (context)<br>Long-term (vector DB)</div></div>
+      <div class="spoke"><div class="sp-i">🔧</div><div class="sp-l">Skills / Tools</div><div class="sp-s">Search, APIs, code, files</div></div>
+      <div class="spoke"><div class="sp-i">📋</div><div class="sp-l">Planning</div><div class="sp-s">Breaks goals into steps</div></div>
+      <div class="spoke"><div class="sp-i">👁️</div><div class="sp-l">Perception</div><div class="sp-s">Reads text, images, files</div></div>
+      <div class="spoke"><div class="sp-i">⚡</div><div class="sp-l">Action</div><div class="sp-s">Executes, sends, writes</div></div>
+      <div class="spoke"><div class="sp-i">🔄</div><div class="sp-l">Reflection</div><div class="sp-s">Checks task completion</div></div>
+      <div class="spoke"><div class="sp-i">🛡️</div><div class="sp-l">Guardrails</div><div class="sp-s">Safety, approval gates</div></div>
+      <div class="spoke"><div class="sp-i">📡</div><div class="sp-l">Observability</div><div class="sp-s">Logging, tracing, evals</div></div>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:20px">
+    <tr><th>Dimension</th><th>Chatbot / Pure LLM</th><th>AI Agent</th></tr>
+    <tr><td><strong>Interaction pattern</strong></td><td>One question → one answer</td><td>One goal → multiple autonomous steps</td></tr>
+    <tr><td><strong>Tool use</strong></td><td class="no">None — text only</td><td class="ok">Calls APIs, searches, runs code</td></tr>
+    <tr><td><strong>Memory</strong></td><td>Within the conversation only</td><td class="ok">Can persist across sessions via DB</td></tr>
+    <tr><td><strong>Autonomy</strong></td><td>Human needed every step</td><td class="ok">Works independently on complex tasks</td></tr>
+    <tr><td><strong>Real example</strong></td><td>"Summarize this email"</td><td>"Monitor my inbox, summarize daily, flag urgent items, create Jira tickets for bugs"</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════ S8 — CO-WORKERS / MULTI-AGENT ═══════════════════════════════════════ -->
+<section id="coworker" class="section reveal">
+  <div class="sec-label">Section 08</div>
+  <h2 class="sec-title">AI Co-workers & Multi-Agent Systems</h2>
+  <p class="sec-sub">An AI co-worker is an agent designed to work persistently alongside a human team. Multi-agent systems are several specialized agents collaborating — like a team of AI specialists, each handling what they're best at, coordinated by an orchestrator.</p>
+
+  <div class="callout c-tip">
+    <strong style="color:var(--a3)">👥 Analogy:</strong> Think of a consulting engagement: a Project Manager (Orchestrator) coordinates a Researcher, a Lawyer, and a Financial Analyst — each a specialist. The PM delegates tasks, collects deliverables, and presents the final result. That's a multi-agent system. Each "agent" is an LLM with specialized skills, prompt, and data access.
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">Multi-Agent Architecture — The Team Structure</h3>
+  <div class="cw-flow">
+    <div class="cw-row">
+      <div class="cw-box" style="text-align:center;border-top:3px solid var(--a5)"><div style="font-size:1.6rem">👤</div><h4>Human / Business User</h4><p>Provides the high-level goal. Receives the final deliverable. Approves before critical actions.</p></div>
+    </div>
+    <div class="cw-div">↓</div>
+    <div class="cw-row">
+      <div class="cw-box" style="text-align:center;border-top:3px solid var(--a2);flex:2"><div style="font-size:1.6rem">🎯</div><h4>Orchestrator Agent</h4><p>Receives the goal, breaks it into subtasks, delegates to specialist agents, manages dependencies between tasks, and assembles the final output. The "manager" of the team.</p></div>
+    </div>
+    <div class="cw-div">↓</div>
+    <div class="cw-row">
+      <div class="cw-box" style="border-top:3px solid var(--a1)"><div style="font-size:1.1rem;margin-bottom:4px">🔍</div><h4>Research Agent</h4><p>Web search, RAG retrieval, data gathering from external sources</p></div>
+      <div class="cw-box" style="border-top:3px solid var(--a3)"><div style="font-size:1.1rem;margin-bottom:4px">📝</div><h4>Writing Agent</h4><p>Drafts reports, emails, BRDs, user stories, documentation</p></div>
+      <div class="cw-box" style="border-top:3px solid var(--a4)"><div style="font-size:1.1rem;margin-bottom:4px">💻</div><h4>Code Agent</h4><p>Writes, executes, tests code; analyzes data; generates charts</p></div>
+      <div class="cw-box" style="border-top:3px solid var(--a5)"><div style="font-size:1.1rem;margin-bottom:4px">📊</div><h4>Data Agent</h4><p>Queries Salesforce, databases, spreadsheets, analytics platforms</p></div>
+    </div>
+    <div class="cw-div">↓</div>
+    <div class="cw-row">
+      <div class="cw-box" style="text-align:center;border-top:3px solid var(--a3);flex:2"><div style="font-size:1.6rem">📦</div><h4>Final Output Delivered</h4><p>Report, document, Jira tickets, CRM updates, email draft — returned to the human for review or directly published</p></div>
+    </div>
+  </div>
+
+  <div class="example">
+    <strong>Real-World Example — BSA Agent (Sreeni's project at BlackLine):</strong> Meeting transcript uploaded → Orchestrator delegates to: Analyzer Agent (extracts requirements and acceptance criteria) → Writing Agent (drafts BRD sections and user stories) → Integration Agent (creates Jira stories via API) → Final BRD document + Jira tickets delivered. Zero manual effort. Minutes instead of days.
+  </div>
+
+  <div class="g2" style="margin-top:22px">
+    <div class="card ag">
+      <div class="card-title">✅ What AI Co-workers Handle Autonomously</div>
+      <ul class="hl" style="margin-top:8px">
+        <li>Repetitive, rule-based, high-volume tasks</li>
+        <li>Data gathering and cross-source synthesis</li>
+        <li>First drafts of all document types</li>
+        <li>Routine internal and external communications</li>
+        <li>Monitoring, alerting, and status reporting</li>
+        <li>Creating tickets, tasks, and calendar invites</li>
+      </ul>
+    </div>
+    <div class="card am">
+      <div class="card-title">🤝 Where Humans Stay in the Loop</div>
+      <ul class="hl" style="margin-top:8px">
+        <li>Final approval on high-stakes actions and decisions</li>
+        <li>Relationship-sensitive communications</li>
+        <li>Strategic tradeoffs and direction-setting</li>
+        <li>Validating AI reasoning for accuracy</li>
+        <li>Ethical and legal judgment calls</li>
+        <li>Creative direction and brand voice</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S9 — MCP ═══════════════════════════════════════ -->
+<section id="mcp" class="section reveal">
+  <div class="sec-label">Section 09</div>
+  <h2 class="sec-title">MCP — Model Context Protocol</h2>
+  <p class="sec-sub">MCP is an open standard created by Anthropic that defines a universal way for AI agents to connect to external tools, data sources, and services — regardless of which AI model or which tool vendor is involved.</p>
+
+  <div class="callout c-info">
+    <strong style="color:var(--a1)">🔌 USB Analogy:</strong> Before USB, every device had a different connector — printers, cameras, keyboards all used different cables. USB standardized it: one port, any device. MCP does the same for AI. You build an MCP server for Salesforce once — and any AI (Claude, GPT, Gemini) can use it with zero custom integration work.
+  </div>
+
+  <div class="pipeline" style="margin-top:22px">
+    <div class="ps"><div class="pb at"><div class="pi">🤖</div><div class="pl">AI Agent</div><div class="psub">Claude / GPT / Gemini</div></div></div>
+    <div class="parrow">⟺</div>
+    <div class="ps"><div class="pb av"><div class="pi">🔌</div><div class="pl">MCP Protocol</div><div class="psub">Standardized interface</div></div></div>
+    <div class="parrow">⟺</div>
+    <div class="ps"><div class="pb ag"><div class="pi">🖥️</div><div class="pl">MCP Server</div><div class="psub">Exposes tools & resources</div></div></div>
+    <div class="parrow">⟺</div>
+    <div class="ps"><div class="pb ac"><div class="pi">📦</div><div class="pl">External Systems</div><div class="psub">Salesforce, GitHub, Jira, Slack…</div></div></div>
+  </div>
+
+  <div class="g2" style="margin-top:18px">
+    <div class="card ac"><div class="card-title">❌ Without MCP</div><div class="card-body">Each AI model × each tool requires a custom integration. 5 AI models + 10 tools = 50 custom connectors to build and maintain. Every update breaks something. Nightmare at scale.</div></div>
+    <div class="card ag"><div class="card-title">✅ With MCP</div><div class="card-body">Build one MCP server per tool. Any AI model that speaks MCP can use it instantly. 10 tools = 10 MCP servers. All 5 AI models use all 10 tools. Plug-and-play at enterprise scale.</div></div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">What an MCP Server Exposes</h3>
+  <div class="g3">
+    <div class="card"><div style="font-size:1.3rem;margin-bottom:8px">🔧</div><div class="card-title">Tools</div><div class="card-body">Functions the agent can call: <code>create_jira_issue()</code>, <code>query_salesforce()</code>, <code>send_slack_message()</code>.</div></div>
+    <div class="card"><div style="font-size:1.3rem;margin-bottom:8px">📄</div><div class="card-title">Resources</div><div class="card-body">Data the agent can read: files, database records, API responses — returned as structured content.</div></div>
+    <div class="card"><div style="font-size:1.3rem;margin-bottom:8px">💬</div><div class="card-title">Prompts</div><div class="card-body">Reusable prompt templates the agent can invoke for specific workflows — pre-built instruction sets.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S10 — PROMPTING ═══════════════════════════════════════ -->
+<section id="prompting" class="section reveal">
+  <div class="sec-label">Section 10</div>
+  <h2 class="sec-title">Prompt Engineering — Talking to AI Right</h2>
+  <p class="sec-sub">A prompt is your instruction to an AI. How you write it dramatically changes output quality. Prompt engineering is the skill of communicating clearly and precisely with AI to get consistently great results.</p>
+
+  <div class="g2" style="margin-bottom:22px">
+    <div class="card ac">
+      <div class="card-title">❌ Vague Prompt</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.79rem;background:rgba(0,0,0,.35);padding:12px;border-radius:7px;margin:10px 0;color:var(--dim)">write something about salesforce</div>
+      <div class="card-body">No role, no context, no format, no goal. You'll get a generic, shallow paragraph that's useful to no one.</div>
+    </div>
+    <div class="card ag">
+      <div class="card-title">✅ Precise Prompt</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.79rem;background:rgba(0,0,0,.35);padding:12px;border-radius:7px;margin:10px 0;color:var(--a3)">You are a Salesforce expert. Write a 200-word explanation of Salesforce CPQ for a non-technical VP of Sales. Avoid jargon. Focus on business value and ROI. Use bullet points for key benefits.</div>
+      <div class="card-body">Role, length, audience, tone, format, focus — all specified. The output will be on-target every time.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT BUILDER INTERACTIVE -->
+  <div class="prompt-builder">
+    <div class="sim-title">⚡ <span>Interactive Prompt Builder — Construct Perfect Prompts</span></div>
+    <div class="pb-parts">
+      <div class="pb-part">
+        <label>ROLE (Who is the AI?)</label>
+        <input type="text" id="pb-role" placeholder="e.g. Senior Salesforce Architect" oninput="buildPrompt()">
+      </div>
+      <div class="pb-part">
+        <label>TASK (What to do?)</label>
+        <input type="text" id="pb-task" placeholder="e.g. Write a project proposal" oninput="buildPrompt()">
+      </div>
+      <div class="pb-part">
+        <label>AUDIENCE (Who reads it?)</label>
+        <input type="text" id="pb-audience" placeholder="e.g. Non-technical VP of Finance" oninput="buildPrompt()">
+      </div>
+      <div class="pb-part">
+        <label>FORMAT (Output structure)</label>
+        <select id="pb-format" onchange="buildPrompt()">
+          <option value="">— pick format —</option>
+          <option>bullet points</option>
+          <option>numbered list</option>
+          <option>a table</option>
+          <option>a short paragraph</option>
+          <option>an email</option>
+          <option>a step-by-step guide</option>
+          <option>JSON</option>
+        </select>
+      </div>
+      <div class="pb-part">
+        <label>TONE</label>
+        <select id="pb-tone" onchange="buildPrompt()">
+          <option value="">— pick tone —</option>
+          <option>professional</option>
+          <option>casual and friendly</option>
+          <option>concise and direct</option>
+          <option>technical and precise</option>
+          <option>persuasive</option>
+        </select>
+      </div>
+      <div class="pb-part">
+        <label>LENGTH</label>
+        <select id="pb-len" onchange="buildPrompt()">
+          <option value="">— pick length —</option>
+          <option>under 100 words</option>
+          <option>150–200 words</option>
+          <option>300–400 words</option>
+          <option>1–2 pages</option>
+        </select>
+      </div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--a1);letter-spacing:.15em;margin-bottom:6px">GENERATED PROMPT PREVIEW</div>
+    <div class="pb-output" id="pb-output">Fill in the fields above to build your prompt →</div>
+    <div class="pb-bottom">
+      <button class="copy-btn" onclick="copyPrompt()">📋 Copy Prompt</button>
+      <span class="copy-msg" id="copy-msg">Copied!</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;margin:28px 0 14px;color:var(--dim)">Advanced Prompting Techniques</h3>
+  <div class="g2">
+    <div class="card at"><div class="badge bt">Chain of Thought</div><div class="card-title">"Think step by step"</div><div class="card-body">Ask the model to reason through a problem before answering. Dramatically improves accuracy on complex reasoning tasks. Add "Let's think through this step by step" to any hard question.</div></div>
+    <div class="card av"><div class="badge bv">Few-shot Prompting</div><div class="card-title">Show examples</div><div class="card-body">Give 2–3 input/output examples before your actual request. The model patterns its response after your examples. Best for consistent formatting, custom styles, or specific output schemas.</div></div>
+    <div class="card ag"><div class="badge bg">Role Prompting</div><div class="card-title">Set a persona</div><div class="card-body">"You are a senior contract lawyer at a Fortune 500 company..." The model adopts that expertise and frames every answer through that lens. Elevates response quality significantly.</div></div>
+    <div class="card am"><div class="badge bm">Self-Consistency</div><div class="card-title">Ask multiple times</div><div class="card-body">For critical decisions, ask the same question 3 times with temperature > 0. Compare answers. The one appearing most often is usually most reliable. Used in production agent pipelines.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S11 — FULL STACK ═══════════════════════════════════════ -->
+<section id="stack" class="section reveal">
+  <div class="sec-label">Section 11</div>
+  <h2 class="sec-title">The Complete AI Stack — One View</h2>
+  <p class="sec-sub">How every concept connects — from raw data at the bottom to intelligent business value at the top. Each layer depends on the one below it.</p>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin:22px 0">
+    <div style="text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.2em;margin-bottom:20px">READ BOTTOM TO TOP — HOW AI IS BUILT AND DEPLOYED</div>
+
+    <div class="layer" style="background:rgba(255,255,255,.02);border:1px solid var(--border)">
+      <div class="layer-label" style="color:var(--muted)">LAYER 6 — BUSINESS VALUE</div>
+      <div class="layer-chips">
+        <div class="chip"><strong>📊 Reports & Analysis</strong><span>Insights surfaced automatically</span></div>
+        <div class="chip"><strong>⚡ Automated Workflows</strong><span>Hours of work in seconds</span></div>
+        <div class="chip"><strong>💬 Intelligent Answers</strong><span>Accurate, grounded responses</span></div>
+        <div class="chip"><strong>🎯 Decisions Supported</strong><span>Better data, better choices</span></div>
+      </div>
+    </div>
+    <div class="layer-arrow">↑</div>
+
+    <div class="layer" style="background:rgba(255,209,102,.05);border:1px solid rgba(255,209,102,.2)">
+      <div class="layer-label" style="color:var(--a5)">LAYER 5 — AGENTS & ORCHESTRATION</div>
+      <div class="layer-chips">
+        <div class="chip"><strong>🎯 Orchestrator</strong><span>Plans & delegates</span></div>
+        <div class="chip"><strong>🤖 Specialist Agents</strong><span>Research, Write, Code, Data</span></div>
+        <div class="chip"><strong>🔁 ReAct Loop</strong><span>Think → Act → Observe</span></div>
+        <div class="chip"><strong>🛡️ Human-in-loop Gates</strong><span>Approval checkpoints</span></div>
+      </div>
+    </div>
+    <div class="layer-arrow">↑</div>
+
+    <div class="layer" style="background:rgba(255,107,107,.05);border:1px solid rgba(255,107,107,.2)">
+      <div class="layer-label" style="color:var(--a4)">LAYER 4 — SKILLS / TOOLS / MCP</div>
+      <div class="layer-chips">
+        <div class="chip"><strong>🔍 Search</strong><span>Web, vector DB</span></div>
+        <div class="chip"><strong>📧 Email</strong><span>Gmail, Outlook</span></div>
+        <div class="chip"><strong>📊 CRM</strong><span>Salesforce, HubSpot</span></div>
+        <div class="chip"><strong>💻 Code Exec</strong><span>Python, bash</span></div>
+        <div class="chip"><strong>🌐 APIs</strong><span>Jira, Slack, REST</span></div>
+        <div class="chip"><strong>🔌 MCP Protocol</strong><span>Universal connector</span></div>
+      </div>
+    </div>
+    <div class="layer-arrow">↑</div>
+
+    <div class="layer" style="background:rgba(0,212,170,.05);border:1px solid rgba(0,212,170,.2)">
+      <div class="layer-label" style="color:var(--a3)">LAYER 3 — RAG & KNOWLEDGE GROUNDING</div>
+      <div class="layer-chips">
+        <div class="chip"><strong>🗄️ Vector Database</strong><span>Pinecone, pgvector, Vertex Search</span></div>
+        <div class="chip"><strong>📚 Document Ingestion</strong><span>Chunking & indexing</span></div>
+        <div class="chip"><strong>🔢 Embedding Model</strong><span>Text → semantic vectors</span></div>
+        <div class="chip"><strong>🔍 Semantic Search</strong><span>Top-k retrieval</span></div>
+        <div class="chip"><strong>📋 Context Injection</strong><span>Docs → LLM prompt</span></div>
+      </div>
+    </div>
+    <div class="layer-arrow">↑</div>
+
+    <div class="layer" style="background:rgba(162,89,255,.05);border:1px solid rgba(162,89,255,.2)">
+      <div class="layer-label" style="color:var(--a2)">LAYER 2 — THE MODEL (LLM)</div>
+      <div class="layer-chips">
+        <div class="chip"><strong>🧠 Transformer Architecture</strong><span>Attention mechanism</span></div>
+        <div class="chip"><strong>📐 Billions of Parameters</strong><span>70B–1T weights</span></div>
+        <div class="chip"><strong>💬 Language Understanding</strong><span>Read, reason, generate</span></div>
+        <div class="chip"><strong>🎯 RLHF Aligned</strong><span>Helpful & safe</span></div>
+      </div>
+    </div>
+    <div class="layer-arrow">↑</div>
+
+    <div class="layer" style="background:rgba(79,142,247,.05);border:1px solid rgba(79,142,247,.2)">
+      <div class="layer-label" style="color:var(--a1)">LAYER 1 — DATA FOUNDATION</div>
+      <div class="layer-chips">
+        <div class="chip"><strong>📚 Pre-training Data</strong><span>Trillions of tokens</span></div>
+        <div class="chip"><strong>🧹 Data Cleaning</strong><span>Dedup, filter, normalize</span></div>
+        <div class="chip"><strong>🔢 Tokenization</strong><span>Text → number sequences</span></div>
+        <div class="chip"><strong>🏋️ GPU Training</strong><span>Thousands of A100s, weeks</span></div>
+        <div class="chip"><strong>🎯 Fine-tuning Data</strong><span>Domain-specific datasets</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S12 — A2A ═══════════════════════════════════════ -->
+<section id="a2a" class="section reveal">
+  <div class="sec-label">Section 12</div>
+  <h2 class="sec-title">A2A — Agent-to-Agent Protocol</h2>
+  <p class="sec-sub">A2A is an emerging open standard (led by Google, supported by 50+ companies) that allows AI agents from different vendors and platforms to communicate, delegate tasks, and collaborate as peers — even when built on completely different AI models.</p>
+
+  <div class="callout c-info">
+    <strong style="color:var(--a1)">📧 Email Analogy:</strong> Email is a protocol letting Gmail users talk to Outlook users and Yahoo users — different services, one standard. A2A does the same for AI agents: a Salesforce Agentforce agent can delegate a research task to a Google Vertex AI agent, and they communicate via A2A — neither cares what model the other runs on.
+  </div>
+
+  <div class="g2" style="margin-top:22px">
+    <div class="card at">
+      <div class="badge bt">MCP — Vertical Connection</div>
+      <div class="card-title">Agent ↔ Tool</div>
+      <div class="card-body">How an intelligent agent connects to external tools and data sources. The agent calls the tool. One-directional intelligence — only the agent thinks. Tools are passive.<br><br><strong>Analogy:</strong> A chef (agent) using kitchen appliances (tools). The oven doesn't have opinions.</div>
+    </div>
+    <div class="card av">
+      <div class="badge bv">A2A — Horizontal Connection</div>
+      <div class="card-title">Agent ↔ Agent</div>
+      <div class="card-body">How peer agents communicate and negotiate tasks. Both sides are intelligent. They can ask clarifying questions, refuse tasks, propose alternatives.<br><br><strong>Analogy:</strong> Two expert consultants working together — both bring expertise, both communicate as equals.</div>
+    </div>
+  </div>
+
+  <div class="example" style="margin-top:16px">
+    <strong>Real Multi-vendor A2A Example:</strong> Your company's Salesforce Agentforce agent handles a complex customer renewal. It realizes it needs contract analysis → delegates via A2A to an Ironclad CLM Agent → which requests pricing data via A2A from a Zuora billing agent → all three collaborate and return a complete renewal package. Three agents, three vendors, one A2A protocol.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S13 — AI PLATFORMS ═══════════════════════════════════════ -->
+<section class="section reveal">
+  <div class="sec-label">Section 13</div>
+  <h2 class="sec-title">AI Platforms — Where You Build</h2>
+  <p class="sec-sub">Enterprise AI is built on platforms that handle infrastructure, model access, RAG pipelines, agent orchestration, and deployment at scale. Here are the major ones.</p>
+
+  <table class="tbl">
+    <tr><th>Platform</th><th>Vendor</th><th>What It Provides</th><th>Best For</th></tr>
+    <tr><td><strong>Vertex AI</strong></td><td>Google Cloud</td><td>Model Garden, Agent Builder, Vertex AI Search (RAG), fine-tuning, Workbench</td><td>Google Cloud shops, enterprise RAG, multi-model</td></tr>
+    <tr><td><strong>Azure OpenAI</strong></td><td>Microsoft</td><td>GPT models, Azure AI Search, Semantic Kernel, Copilot Studio</td><td>Microsoft/Office ecosystem, enterprise compliance</td></tr>
+    <tr><td><strong>Agentforce</strong></td><td>Salesforce</td><td>Native CRM agents, Einstein AI, Apex extensibility, Data Cloud RAG</td><td>CRM-native agents, sales/service/marketing automation</td></tr>
+    <tr><td><strong>AWS Bedrock</strong></td><td>Amazon</td><td>Multi-model (Claude, Llama, Titan), Knowledge Bases (RAG), Agents for Bedrock</td><td>AWS infrastructure teams, multi-model flexibility</td></tr>
+    <tr><td><strong>LangChain / LangGraph</strong></td><td>Open Source</td><td>Agent framework, chain orchestration, RAG tooling, multi-agent graphs</td><td>Custom agent development, rapid prototyping</td></tr>
+    <tr><td><strong>Claude.ai / Anthropic API</strong></td><td>Anthropic</td><td>Claude models, 200K context, MCP servers, Computer Use, Projects</td><td>Long-context analysis, safe enterprise AI, agentic tasks</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════ S14 — GLOSSARY ═══════════════════════════════════════ -->
+<section id="glossary" class="section reveal">
+  <div class="sec-label">Section 14</div>
+  <h2 class="sec-title">Complete Glossary</h2>
+  <p class="sec-sub">Every key term — click to expand. Bookmark this section for quick reference.</p>
+
+  <div style="margin-top:16px">
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Token</span><span class="acc-sub">The basic unit of text AI processes</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">A token is roughly 3–4 characters or ¾ of a word. "Hello world" = 2 tokens. "Anthropic" = 3 tokens. LLMs don't see letters — they see tokens (numbers). Context windows are measured in tokens: Claude's 200K token window ≈ 150,000 words or ~300 pages. More tokens = more context but higher API cost.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Embeddings / Vectors</span><span class="acc-sub">How AI measures semantic meaning numerically</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">An embedding converts text into a list of ~1500 floating-point numbers (a vector) that represents its meaning. Texts with similar meanings produce numerically similar vectors. "Cat" and "kitten" → vectors close together. "Cat" and "skyscraper" → vectors far apart. Cosine similarity measures closeness. The foundation of semantic search and RAG.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Context Window</span><span class="acc-sub">The AI's active short-term memory</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">The context window is the total text the model can "see" at once — the conversation history, system prompt, retrieved chunks, and tool results all count against it. GPT-4o: 128K tokens. Claude 3.7: 200K. Gemini 1.5 Pro: 1M. Everything outside the window is forgotten. RAG solves this by injecting only the most relevant chunks rather than entire documents.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Hallucination</span><span class="acc-sub">When AI confidently states things that are false</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Hallucination happens when an LLM generates confident-sounding text that is factually wrong. It occurs because the model is predicting statistically likely text — not necessarily true text. A model might confidently cite a paper that doesn't exist. Solutions: RAG (ground answers in real documents), system prompts instructing "say I don't know if uncertain," retrieval verification layers.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Temperature</span><span class="acc-sub">Controls creativity vs. consistency</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Temperature (0.0–2.0) controls how random the model's word selection is. At 0: always picks the statistically most likely next token — deterministic, consistent. Good for Q&A and factual analysis. At 1.0: creative variation, explores less likely options. Good for brainstorming and creative writing. Agents doing data analysis: use 0. Content generation: 0.7–1.0.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>System Prompt</span><span class="acc-sub">Hidden instructions that define every AI product</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">The system prompt is a hidden instruction block given to the model before the user speaks. It defines persona, rules, tone, available tools, restrictions, and output format. Every product built on LLMs (Claude.ai, ChatGPT, Copilot) has a system prompt. Example: "You are a Salesforce CPQ specialist. Only answer CPQ questions. Cite sources. Never guess pricing. Say 'I don't know' if uncertain."</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Function Calling / Tool Use</span><span class="acc-sub">How the LLM reaches into the real world</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Instead of generating text, the LLM can output a structured JSON "tool call" — specifying which skill to invoke and with what parameters. The host application (not the LLM) actually executes the function, gets real data back, and returns it to the LLM as a "tool result." The LLM then incorporates real data into its final answer. This is the bridge between language model and real-world action.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Generative AI vs Agentic AI</span><span class="acc-sub">Passive responder vs. autonomous actor</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Generative AI creates content when you prompt it — one turn, one output. You do the work of assembling the pieces. Agentic AI acts: it plans multi-step workflows, uses tools, makes decisions, loops until tasks are complete — minimal human steering needed at each step. Today's frontier: moving from "ask and get an answer" to "assign a goal and get it done."</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>RLHF</span><span class="acc-sub">Reinforcement Learning from Human Feedback</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">RLHF is the training technique that turns a base language model into a helpful, safe assistant. Human raters compare pairs of model responses and indicate which is better. A "reward model" learns to score responses. The LLM is then fine-tuned using reinforcement learning to maximize the reward score. This is why Claude is polite, follows instructions, and refuses harmful requests — it was trained to be preferred by humans.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Semantic Search vs Keyword Search</span><span class="acc-sub">Meaning vs. exact words</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Keyword search finds documents containing the exact words you typed. Semantic search finds documents with similar meaning, even if they use different words. "How do I log in?" semantically matches "account authentication procedure" even without shared keywords. RAG uses semantic search via vector embeddings so users get relevant results regardless of exact phrasing. Far more natural and robust than keyword search.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Inference vs Training</span><span class="acc-sub">Using a model vs. building a model</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Training is the expensive, one-time (or periodic) process of updating a model's weights on a large dataset — requires thousands of GPUs, weeks, and millions of dollars. Inference is using a trained model to generate responses — runs on much less hardware, milliseconds per request, and is what happens every time you send a message to Claude. API pricing is for inference, not training.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Agentforce (Salesforce)</span><span class="acc-sub">CRM-native AI agent platform</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Agentforce is Salesforce's platform for deploying AI agents that run natively on CRM data — no custom ETL, no data export. Agents can autonomously handle sales follow-ups, qualify leads, resolve support cases, generate contracts, and update opportunity stages. Built on Einstein AI with full Apex extensibility. Agents reason using Data Cloud (grounded on your CRM history) and can call external skills via Agentforce actions.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>Vertex AI (Google)</span><span class="acc-sub">Google's enterprise AI engineering platform</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">Vertex AI is Google Cloud's managed platform for building, training, and deploying AI. Key services: Model Garden (access Gemini, Llama, Claude, etc.), Vertex AI Search (production-grade RAG with zero infrastructure), Agent Builder (build multi-turn agents visually), Workbench (Jupyter notebooks for ML), and Pipelines (MLOps automation). The platform where enterprise AI engineering teams build production systems.</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-hd" onclick="togAcc(this)"><span>RAG Chunking Strategy</span><span class="acc-sub">How documents are split for optimal retrieval</span><span class="acc-chev">▾</span></div>
+      <div class="acc-body">How you chunk documents dramatically impacts RAG quality. Fixed-size chunking: split every N tokens regardless of content (simple but breaks sentences). Semantic chunking: split at natural paragraph or section boundaries (better coherence). Hierarchical chunking: store both chunk-level and document-level summaries (enables both specific and broad retrieval). Overlap: chunks overlap by 20% so context isn't lost at boundaries. The right strategy depends on your document type and query patterns.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-brand">⬡ THE AI UNIVERSE</div>
+  <div class="ft-chain">
+    <span class="ft-node">Data</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">Training</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">LLM</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">RAG</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">Skills</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">Agents</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">Multi-Agent</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">MCP</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">A2A</span><span style="color:var(--muted);padding:4px 2px">→</span>
+    <span class="ft-node">Business Value</span>
+  </div>
+  <div style="color:var(--muted)">Every concept connected. Every analogy practical. Built for both non-technical and technical readers.</div>
+</footer>
+
+</div><!-- end page-body -->
+
+<!-- Back to Top -->
+<button id="btt" onclick="goTo('hero')" title="Back to top">↑</button>
+
+<script>
+// ─── NAVIGATION — pure JS, no <a href> anchors that cause page navigation ───
+function goTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('nav').offsetHeight + 8;
+  const top = el.getBoundingClientRect().top + window.scrollY - navH;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+// ─── PROGRESS BAR ───
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop || document.body.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+  // Back to top button
+  const btt = document.getElementById('btt');
+  btt.classList.toggle('show', scrolled > 400);
+  // Active nav
+  updateActiveNav();
+});
+
+// ─── ACTIVE NAV ───
+const sections = ['hero','what-is-ai','llm','models','datasets','rag','skills','agents','coworker','mcp','prompting','stack','a2a','glossary'];
+function updateActiveNav() {
+  const navH = 60;
+  let current = sections[0];
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 10) current = id;
+  }
+  document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', sections[i] === current);
+  });
+}
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── ACCORDION ───
+function togAcc(hd) {
+  const item = hd.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ─── RAG SIMULATOR ───
+const ragKB = [
+  { topic: 'password reset', chunk: 'To reset your Salesforce password: 1) Go to login.salesforce.com 2) Click "Forgot Your Password?" 3) Enter your username/email 4) Check your inbox for a reset link (expires in 24 hours) 5) Click the link and create a new password. For SSO users, contact your IT admin.', score: 0.94 },
+  { topic: 'account credentials', chunk: 'Account security policy requires passwords to be at least 12 characters with mixed case, numbers, and symbols. Passwords expire every 90 days. Three failed login attempts will lock your account — contact helpdesk@company.com to unlock.', score: 0.87 },
+  { topic: 'SSO login', chunk: 'Single Sign-On (SSO) users authenticate via your company\'s identity provider (Okta, Azure AD). If you experience SSO issues, ensure your browser cookies are cleared and try an incognito window before contacting IT support.', score: 0.79 },
+  { topic: 'refund policy', chunk: 'Refunds are available within 30 days of purchase. To request a refund: submit a ticket at support.company.com with your order number. Processing takes 5–7 business days. Refunds are issued to the original payment method.', score: 0.91 },
+  { topic: 'salesforce agents', chunk: 'Salesforce Agentforce lets you build autonomous AI agents natively on your CRM data. Agents can handle lead qualification, case resolution, and contract generation using natural language. Configure via Setup > Agentforce > Agent Builder.', score: 0.96 },
+];
+
+function runRAGSim() {
+  const query = document.getElementById('rag-query').value.trim();
+  if (!query) return;
+  const container = document.getElementById('sim-steps');
+  container.style.display = 'flex';
+  const steps = ['ss1','ss2','ss3','ss4','ss5'];
+  steps.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('show');
+  });
+
+  const ql = query.toLowerCase();
+  let best = ragKB[0];
+  for (const k of ragKB) {
+    const kwords = k.topic.split(' ');
+    if (kwords.some(w => ql.includes(w))) { best = k; break; }
+  }
+  const vec = Array.from({length:6}, () => (Math.random()*2-1).toFixed(3));
+
+  const content = [
+    `Query: <code>"${query}"</code><br>Embedding model: <code>text-embedding-3-large</code><br>Output vector (showing first 6 of 1536 dims): <code>[${vec.join(', ')}, …]</code>`,
+    `Comparing query vector against ${ragKB.length * 80}+ stored document chunk vectors in the vector database using cosine similarity…<br><br>Top matches identified by semantic closeness, not keyword overlap.`,
+    `<strong>Chunk 1</strong> (similarity: ${best.score}) — <em>${best.topic}</em><br>"${best.chunk.slice(0,120)}…"<br><br><strong>Chunk 2</strong> (similarity: ${(best.score - 0.08).toFixed(2)}) — Related policy section retrieved.<br><strong>Chunk 3</strong> (similarity: ${(best.score - 0.15).toFixed(2)}) — Secondary reference retrieved.`,
+    `<code>[SYSTEM]: You are a helpful assistant. Answer only from the provided context. If the answer is not in the context, say "I don't have that information."<br><br>[CONTEXT]:<br>${best.chunk.slice(0,200)}…<br><br>[USER QUESTION]: ${query}</code>`,
+    `<strong>Grounded Answer:</strong> ${best.chunk.slice(0,220)}… <em>(Source: Company Knowledge Base, retrieved ${new Date().toLocaleDateString()})</em><br><br>✅ Answer is grounded in your actual documents — not hallucinated from training data.`
+  ];
+
+  const ids = ['ss1c','ss2c','ss3c','ss4c','ss5c'];
+  let delay = 0;
+  steps.forEach((sid, i) => {
+    setTimeout(() => {
+      document.getElementById(ids[i]).innerHTML = content[i];
+      document.getElementById(sid).classList.add('show');
+    }, delay);
+    delay += 420;
+  });
+}
+
+// ─── PROMPT BUILDER ───
+function buildPrompt() {
+  const role = document.getElementById('pb-role').value;
+  const task = document.getElementById('pb-task').value;
+  const audience = document.getElementById('pb-audience').value;
+  const format = document.getElementById('pb-format').value;
+  const tone = document.getElementById('pb-tone').value;
+  const len = document.getElementById('pb-len').value;
+  let parts = [];
+  if (role) parts.push(`You are a ${role}.`);
+  if (task) parts.push(task + '.');
+  if (audience) parts.push(`Write for a ${audience}.`);
+  if (tone) parts.push(`Tone: ${tone}.`);
+  if (format) parts.push(`Format the output as ${format}.`);
+  if (len) parts.push(`Length: ${len}.`);
+  const out = document.getElementById('pb-output');
+  out.textContent = parts.length ? parts.join(' ') : 'Fill in the fields above to build your prompt →';
+}
+
+function copyPrompt() {
+  const text = document.getElementById('pb-output').textContent;
+  if (text.startsWith('Fill in')) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const msg = document.getElementById('copy-msg');
+    msg.style.opacity = '1';
+    setTimeout(() => msg.style.opacity = '0', 1800);
+  });
+}
+
+// ─── INIT ───
+updateActiveNav();
+</script>
+</body>
+</html>
